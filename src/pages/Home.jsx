@@ -1,173 +1,186 @@
-import { faArrowRight, faBoltLightning, faCompass, faGem, faLocationArrow, faShield, faStar } from "@fortawesome/free-solid-svg-icons";
-// import bg from "../assets/car_logo.jpg";
-import { useState } from "react";
+import { faHeart, faUsers, faUserPlus, faComments, faShieldHeart, faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { useState, useEffect } from "react";
 import NavBar from "../components/NavBar";
-// import MobileNavBar from "../components/MobileNavBar";
 import Footer from "../components/Footer";
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export default function Home(){
+// Dummy member data – replace with real API data later
+const members = [
+    { id: 1, name: "Emma", age: 26, location: "NYC", image: "https://randomuser.me/api/portraits/women/1.jpg" },
+    { id: 2, name: "Sophia", age: 24, location: "Chicago", image: "https://randomuser.me/api/portraits/women/3.jpg" },
+    { id: 3, name: "Olivia", age: 27, location: "Seattle", image: "https://randomuser.me/api/portraits/women/5.jpg" },
+    { id: 4, name: "Ava", age: 25, location: "Denver", image: "https://randomuser.me/api/portraits/women/15.jpg" },
+    { id: 5, name: "Isabella", age: 23, location: "Portland", image: "https://randomuser.me/api/portraits/women/9.jpg" },
+    { id: 6, name: "Mia", age: 28, location: "Austin", image: "https://randomuser.me/api/portraits/women/6.jpg" },
+    { id: 7, name: "Charlotte", age: 30, location: "Boston", image: "https://randomuser.me/api/portraits/women/4.jpg" },
+    { id: 8, name: "Amelia", age: 26, location: "LA", image: "https://randomuser.me/api/portraits/women/2.jpg" },
+    { id: 9, name: "Liam", age: 29, location: "SF", image: "https://randomuser.me/api/portraits/men/2.jpg" },
+    { id: 10, name: "Noah", age: 31, location: "Miami", image: "https://randomuser.me/api/portraits/men/4.jpg" },
+];
+
+export default function Home() {
     const [mobileNavBarVisible, setMobileNavBarVisible] = useState(false);
+    const [liveUserCount, setLiveUserCount] = useState(1247);
 
-    return(
+    // Simulate live user counter updating every few seconds
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setLiveUserCount(prev => {
+                // Random fluctuation between -5 and +15
+                const change = Math.floor(Math.random() * 20) - 5;
+                const newCount = prev + change;
+                return newCount > 1000 ? newCount : 1247;
+            });
+        }, 8000);
+        return () => clearInterval(interval);
+    }, []);
+
+    return (
         <>
-            <NavBar activeLink="Match" onToggleMobileNavBar={() => setMobileNavBarVisible(!mobileNavBarVisible)}/>
+            <NavBar activeLink="Home" onToggleMobileNavBar={() => setMobileNavBarVisible(!mobileNavBarVisible)} />
             
-            {/* <MobileNavBar isVisible={mobileNavBarVisible} activeLink="Home" onClose={() => setMobileNavBarVisible(false)} className="sm:col-span-1 pt-7"/> */}
-            
+            <main className="bg-black text-white">
+                {/* Hero Section – Immersive with live counter */}
+                <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+                    {/* Animated gradient background */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-rose-950 via-black to-purple-950 opacity-70" />
+                    <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/noise-pattern.png')] opacity-20" />
+                    
+                    <div className="relative z-10 text-center px-4 py-20 max-w-5xl mx-auto">
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8 }}
+                        >
+                            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md rounded-full px-4 py-1.5 mb-6 border border-white/20">
+                                <FontAwesomeIcon icon={faUsers} className="text-rose-400 text-sm" />
+                                <span className="text-sm font-medium">
+                                    {liveUserCount.toLocaleString()} people online now
+                                </span>
+                            </div>
+                            <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6">
+                                Find Your{" "}
+                                <span className="bg-gradient-to-r from-rose-400 to-pink-500 bg-clip-text text-transparent">
+                                    Perfect Match
+                                </span>
+                            </h1>
+                            <p className="text-xl text-gray-300 max-w-2xl mx-auto mb-8">
+                                Join a global community of authentic singles looking for real connections. 
+                                Smart matching, safe environment, and genuine conversations.
+                            </p>
+                            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                                <Link to="/signup">
+                                    <button className="bg-gradient-to-r from-rose-500 to-pink-600 hover:from-rose-600 hover:to-pink-700 text-white font-semibold py-4 px-8 rounded-full text-lg shadow-lg transition-all flex items-center gap-2 mx-auto">
+                                        Start Your Journey <FontAwesomeIcon icon={faArrowRight} />
+                                    </button>
+                                </Link>
+                                <Link to="/how-it-works">
+                                    <button className="bg-white/10 backdrop-blur-sm border border-white/30 hover:bg-white/20 rounded-full py-4 px-8 text-lg font-medium transition">
+                                        How It Works
+                                    </button>
+                                </Link>
+                            </div>
+                        </motion.div>
+                    </div>
+                </section>
 
-            <div>
-                <main>
-                    <section   className="relative h-screen bg-center bg-cover">
-                        <div className="absolute inset-0 h-screen opacity-60 bg-black" />
-                        <div className="relative flex items-center justify-center h-full">
-                            <motion.div initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.0 }}>
-                                <div className="p-10 text-center text-white mt-10 flex flex-col items-center justify-center">
-                                    <div className="text-sm landscape:text-xs landscape:lg:text-sm w-1/3.5 font-semibold rounded-full py-2.5 px-5 bg-white/5 backdrop-blur-xl shadow-[inset_0_0_30px_rgba(255,255,255,0.2)] border border-white/50 font-display4">
-                                        <FontAwesomeIcon icon={faStar} className="text-yellow-500 pr-0.5"/> Trusted by 10,000+ Customers
+                {/* Member Grid – Interactive & Dynamic */}
+                <section className="py-20 px-4 bg-black">
+                    <div className="max-w-7xl mx-auto">
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6 }}
+                            viewport={{ once: true }}
+                            className="text-center mb-12"
+                        >
+                            <h2 className="text-3xl md:text-4xl font-bold mb-3">
+                                Meet Members <span className="text-rose-400">Ready to Connect</span>
+                            </h2>
+                            <p className="text-gray-400 max-w-xl mx-auto">
+                                Browse real profiles – start a conversation with someone special today.
+                            </p>
+                        </motion.div>
+
+                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-6">
+                            {members.map((member, index) => (
+                                <motion.div
+                                    key={member.id}
+                                    initial={{ opacity: 0, scale: 0.9 }}
+                                    whileInView={{ opacity: 1, scale: 1 }}
+                                    transition={{ duration: 0.4, delay: index * 0.05 }}
+                                    viewport={{ once: true }}
+                                    className="group relative aspect-square rounded-xl overflow-hidden cursor-pointer bg-gray-900"
+                                >
+                                    <img
+                                        src={member.image}
+                                        alt={member.name}
+                                        className="w-full h-full object-cover group-hover:scale-110 transition duration-500"
+                                    />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                                    <div className="absolute bottom-0 left-0 right-0 p-3 translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+                                        <p className="text-white font-semibold text-sm">
+                                            {member.name}, {member.age}
+                                        </p>
+                                        <p className="text-white/70 text-xs">{member.location}</p>
                                     </div>
-                                    <div className="pt-5 font-display4">
-                                        <h2 className="text-6xl md:text-8xl landscape:text-5xl landscape:lg:text-8xl tracking-tighter font-black">Experience Your <br /> Ideal Ride</h2>
-                                        
-                                        <h4 className="pt-2 landscape:text-xs landscape:md:text-sm sm:text-xl sm:px-[15%] sm:pt-5 md:text-2xl landscape:lg:pt-7 landscape:lg:text-lg text-gray-300 hover:text-white">Top-tier vehicles, clear pricing, and outstanding service—your path to luxury begins here.</h4>
+                                    <div className="absolute top-2 right-2 bg-rose-500 rounded-full p-2 opacity-0 group-hover:opacity-100 transition-all duration-300 hover:scale-110">
+                                        <FontAwesomeIcon icon={faHeart} className="text-white text-xs" />
                                     </div>
-                                    <div className="space-x-5 mt-9">
-                                        <Link to="/shop">
-                                            <button className="hover:cursor-pointer bg-white text-black hover:text-white hover:bg-white/5 hover:backdrop-blur-xl hover:shadow-[inset_0_0_30px_rgba(255,255,255,0.2)] border border-white px-3 md:px-10 py-3.5 rounded-xl font-semibold font-display4 text-sm md:text-base">Browse Collection <FontAwesomeIcon icon={faArrowRight} className="text-xs"/></button>
-                                        </Link>
-                                        <Link to="/about">
-                                            <button className="bg-white/5 backdrop-blur-xl shadow-[inset_0_0_30px_rgba(255,255,255,0.2)] border border-white hover:text-black hover:bg-white px-3 md:px-10 py-3.5 rounded-xl hover:cursor-pointer font-semibold font-display4 text-sm md:text-base">Learn More</button>
-                                        </Link>
-                                    </div>
-                                </div>
-                            </motion.div>
+                                </motion.div>
+                            ))}
                         </div>
-                    </section>
 
-
-
-                    {/* Bridge Section */}
-                    <section className="bg-black text-white font-display4 px-30 md:px-20 landscape:md:px-20 landscape:lg:px-30 py-7">
-                        <div className="flex flex-col space-y-15 md:flex-row md:space-y-0 justify-between">
-                            <div className="text-center">
-                                <p className="text-4xl font-bold">500+</p>
-                                <p className="text-sm text-white/75">Premium Vehicles</p>
-                            </div>
-                            <div className="text-center">
-                                <p className="text-4xl font-bold">10K+</p>
-                                <p className="text-sm text-white/75">Happy Customers</p>
-                            </div>
-                            <div className="text-center">
-                                <p className="text-4xl font-bold">10+</p>
-                                <p className="text-sm text-white/75">Years Experience</p>
-                            </div>
-                            <div className="text-center">
-                                <p className="text-4xl font-bold">95%</p>
-                                <p className="text-sm text-white/75">Satisfaction Rate</p>
-                            </div>
-                        </div>
-                    </section>
-
-                    {/* Second Section  */}
-                    <section className="bg-black/92 text-white font-display4 px-10 py-20">
-                        <div className="text-center">
-                            <h2 className="text-5xl font-bold">Why Mossati Stands Out</h2>
-                            <p className="text-white/75 pt-4 text-lg px-10 landscape:md:px-50">Elevate your experience with exceptional service and a carefully curated selection.</p>
-                        </div>
-                        <div className="flex flex-col space-y-15 lg:flex-row lg:space-y-0 justify-between mt-20">
-                            <div className="text-center lg:w-1/3">
-                                <FontAwesomeIcon icon={faGem} className="text-4xl bg-linear-to-br from-black via-gray-800k to-gray-700 p-5.5 rounded-xl"/>
-                                <h3 className="text-xl font-bold tracking-wide mt-7">Elite Collection</h3>
-                                <p className="text-sm px-10 md:px-30 landscape:md:px-50 landscape:lg:px-10 mt-3">An exclusive collection of luxury, sports, and electric vehicles sourced from renowned manufacturers worldwide</p>
-                            </div>
-                            <div className="text-center lg:w-1/3">
-                                <FontAwesomeIcon icon={faShield} className="text-4xl bg-linear-to-br from-black via-gray-800k to-gray-700 p-5.5 rounded-xl"/>
-                                <h3 className="text-xl font-bold tracking-wide mt-7">Seamless & Secure Transactions</h3>
-                                <p className="text-sm px-10 md:px-30 landscape:md:px-50 landscape:lg:px-10 mt-3">Secure, bank-grade payments with flexible options—use your balance or pay on delivery.</p>
-                            </div>
-                            <div className="text-center lg:w-1/3">
-                                <FontAwesomeIcon icon={faBoltLightning} className="text-4xl bg-linear-to-br from-black via-gray-800 to-gray-700 p-5.5 rounded-xl"/>
-                                <h3 className="text-xl font-bold tracking-wide mt-7">Trusted Expert Assistance</h3>
-                                <p className="text-sm px-10 md:px-30 landscape:md:px-50 landscape:lg:px-10 mt-3">24/7 access to a dedicated team of automotive specialists to guide your purchase.</p>
-                            </div>
-                        </div>
-                    </section>
-
-
-                    {/* Third Section */}
-                    <section className="bg-black/70 text-white font-display4 px-10 py-20">
-                        <div className="text-center">
-                            <h2 className="text-5xl font-bold">A Trusted Choice for Thousands</h2>
-                            <p className="text-white/75 pt-4 text-lg px-10 landscape:md:px-50">Genuine feedback from happy clients.</p>
-                        </div>
-                        <div className="flex flex-col space-y-15 lg:flex-row lg:space-y-0 landscape:lg:space-x-10 justify-between mt-20 select-none">
-                            <div className="px-10 md:px-30 landscape:md:px-50 landscape:lg:px-10 py-10 rounded-xl bg-white/5 backdrop-blur-xl shadow-[inset_0_0_30px_rgba(255,255,255,0.2)] border border-white hover:text- hover:bg-white/7 lg:w-1/3">
-                                {Array.from({ length: 5 }).map((_, i) => (
-                                    <FontAwesomeIcon key={i} icon={faStar} className="text-yellow-500 pr-2"/>
-                                ))}
-                                <p className="text-base mt-3">"Incredible service—found my perfect Mercedes quickly, and the delivery was flawless and professional."</p>
-                                <div className="flex space-x-5 items-center mt-3">
-                                    <p className="p-3 bg-black text-white rounded-full font-bold tracking-widest">VH</p>
-                                    <div>
-                                        <p className="font-semibold tracking-wider">Veronica Howard</p>
-                                        <p className="text-xs pt-1 tracking-wide">Mercedes S-Class Owner</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="px-10 md:px-30 landscape:md:px-50 landscape:lg:px-10 py-10 rounded-xl bg-white/5 backdrop-blur-xl shadow-[inset_0_0_30px_rgba(255,255,255,0.2)] border border-white hover:text- hover:bg-white/7 lg:w-1/3">
-                                {Array.from({ length: 5 }).map((_, i) => (
-                                    <FontAwesomeIcon key={i} icon={faStar} className="text-yellow-500 pr-2" />
-                                ))}
-                                <p className="text-base mt-3">"The most straightforward car-buying experience I’ve had. Transparent pricing and excellent support throughout. My Range Rover is perfect."</p>
-                                <div className="flex space-x-5 items-center mt-3">
-                                    <p className="p-3 bg-black text-white rounded-full font-bold tracking-widest">OH</p>
-                                    <div>
-                                        <p className="font-semibold tracking-wider">Owen Hansbury</p>
-                                        <p className="text-xs pt-1 tracking-wide">Range Rover P400 Owner</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="px-10 md:px-30 landscape:md:px-50 landscape:lg:px-10 py-10 rounded-xl bg-white/5 backdrop-blur-xl shadow-[inset_0_0_30px_rgba(255,255,255,0.2)] border border-white hover:text- hover:bg-white/7 lg:w-1/3">
-                                {Array.from({ length: 5 }).map((_, i) => (
-                                    <FontAwesomeIcon key={i} icon={faStar} className="text-yellow-500 pr-2" />
-                                ))}
-                                <p className="text-base mt-3">"A seamless buying experience with full pricing transparency and great customer support. Couldn’t be happier with my new Tesla."</p>
-                                <div className="flex space-x-5 items-center mt-3">
-                                    <p className="p-3 bg-black text-white rounded-full font-bold tracking-widest">EJ</p>
-                                    <div>
-                                        <p className="font-semibold tracking-wider">Grover James</p>
-                                        <p className="text-xs pt-1 tracking-wide">Tesla Cybertruck Owner</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-
-
-                    {/* Fourth Section */}
-                    <section style={{backgroundImage: "radial-gradient(circle at 10px 10px, gray 0.9px, transparent 0px)", backgroundSize: "40px 40px"}} className="bg-black/70 text-white font-display4 px-10 py-20">
-                        <div className="text-center">
-                            <FontAwesomeIcon icon={faCompass} className="text-6xl pb-10"/>
-                            <h2 className="text-5xl font-bold">Start Your Journey to the Perfect Car</h2>
-                            <p className="text-white/75 pt-4 text-lg px-10 landscape:md:px-50">Genuine feedback from happy clients.</p>
-                        </div>
-                        <div className="flex justify-center items-center space-x-5 mt-9">
-                            <Link to="/shop">
-                                <button className="hover:cursor-pointer bg-white text-black hover:text-white hover:bg-white/5 hover:backdrop-blur-xl hover:shadow-[inset_0_0_30px_rgba(255,255,255,0.2)] border border-white px-3 md:px-10 py-3.5 rounded-xl font-semibold font-display4 text-sm md:text-base">View Our Collection <FontAwesomeIcon icon={faArrowRight} className="text-xs"/></button>
-                            </Link>
-                            <Link to="/contact">
-                                <button className="bg-white/5 backdrop-blur-xl shadow-[inset_0_0_30px_rgba(255,255,255,0.2)] border border-white hover:text-black hover:bg-white px-3 md:px-10 py-3.5 rounded-xl hover:cursor-pointer font-semibold font-display4 text-sm md:text-base">Contact Sales</button>
+                        <div className="text-center mt-12">
+                            <Link to="/browse">
+                                <button className="border border-white/30 hover:bg-white/10 rounded-full py-3 px-8 font-medium transition inline-flex items-center gap-2">
+                                    Browse All Members <FontAwesomeIcon icon={faUserPlus} />
+                                </button>
                             </Link>
                         </div>
-                    </section>
+                    </div>
+                </section>
 
+                {/* Features Section – Lightweight with icons */}
+                <section className="py-16 px-4 border-t border-white/10 border-b border-white/10">
+                    <div className="max-w-6xl mx-auto">
+                        <div className="flex flex-col md:flex-row justify-between gap-8 text-center md:text-left">
+                            <div className="flex-1">
+                                <FontAwesomeIcon icon={faComments} className="text-rose-400 text-3xl mb-3" />
+                                <h3 className="text-xl font-semibold mb-2">Real Conversations</h3>
+                                <p className="text-gray-400 text-sm">Icebreakers and video calls make connecting easy.</p>
+                            </div>
+                            <div className="flex-1">
+                                <FontAwesomeIcon icon={faShieldHeart} className="text-rose-400 text-3xl mb-3" />
+                                <h3 className="text-xl font-semibold mb-2">Safe & Verified</h3>
+                                <p className="text-gray-400 text-sm">All profiles manually reviewed and verified.</p>
+                            </div>
+                            <div className="flex-1">
+                                <FontAwesomeIcon icon={faUsers} className="text-rose-400 text-3xl mb-3" />
+                                <h3 className="text-xl font-semibold mb-2">Global Community</h3>
+                                <p className="text-gray-400 text-sm">Connect with singles from over 100 countries.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
 
-                    {/* Footer */}
-                    <Footer/>
-                </main>
-            </div>
+                {/* Final CTA – minimal */}
+                <section className="py-20 px-4 text-center">
+                    <div className="max-w-2xl mx-auto">
+                        <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to find love?</h2>
+                        <p className="text-gray-400 mb-8">Join thousands of happy couples who met on vixi.</p>
+                        <Link to="/signup">
+                            <button className="bg-rose-500 hover:bg-rose-600 text-white font-semibold py-3 px-8 rounded-full transition shadow-lg">
+                                Create Free Account
+                            </button>
+                        </Link>
+                    </div>
+                </section>
+
+                <Footer />
+            </main>
         </>
-    )
+    );
 }
