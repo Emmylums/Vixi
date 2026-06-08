@@ -1,4 +1,4 @@
-import { faHeart, faUsers, faUserPlus, faComments, faShieldHeart, faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { faHeart, faUsers, faUserPlus, faComments, faShieldHeart, faArrowRight, faVideoCamera, faVideo } from "@fortawesome/free-solid-svg-icons";
 import { useState, useEffect } from "react";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
@@ -45,7 +45,7 @@ export default function Home() {
                 {/* Hero Section – Immersive with live counter */}
                 <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
                     {/* Animated gradient background */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-rose-950 via-black to-purple-950 opacity-70" />
+                    <div className="absolute inset-0 bg-linear-to-br from-rose-950 via-black to-purple-950 opacity-70" />
                     <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/noise-pattern.png')] opacity-20" />
                     
                     <div className="relative z-10 text-center px-4 py-20 max-w-5xl mx-auto">
@@ -62,7 +62,7 @@ export default function Home() {
                             </div>
                             <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6">
                                 Find Your{" "}
-                                <span className="bg-gradient-to-r from-rose-400 to-pink-500 bg-clip-text text-transparent">
+                                <span className="bg-linear-to-r from-rose-400 to-pink-500 bg-clip-text text-transparent">
                                     Perfect Match
                                 </span>
                             </h1>
@@ -72,8 +72,8 @@ export default function Home() {
                             </p>
                             <div className="flex flex-col sm:flex-row gap-4 justify-center">
                                 <Link to="/signup">
-                                    <button className="bg-gradient-to-r from-rose-500 to-pink-600 hover:from-rose-600 hover:to-pink-700 text-white font-semibold py-4 px-8 rounded-full text-lg shadow-lg transition-all flex items-center gap-2 mx-auto">
-                                        Start Your Journey <FontAwesomeIcon icon={faArrowRight} />
+                                    <button className="bg-linear-to-r from-rose-500 to-pink-600 hover:from-rose-600 hover:to-pink-700 text-white font-semibold py-4 px-8 rounded-full text-lg shadow-lg transition-all flex items-center gap-2 mx-auto">
+                                        Video Chat <FontAwesomeIcon icon={faVideo} />
                                     </button>
                                 </Link>
                                 <Link to="/how-it-works">
@@ -119,7 +119,7 @@ export default function Home() {
                                         alt={member.name}
                                         className="w-full h-full object-cover group-hover:scale-110 transition duration-500"
                                     />
-                                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                                    <div className="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                                     <div className="absolute bottom-0 left-0 right-0 p-3 translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
                                         <p className="text-white font-semibold text-sm">
                                             {member.name}, {member.age}
@@ -144,7 +144,7 @@ export default function Home() {
                 </section>
 
                 {/* Features Section – Lightweight with icons */}
-                <section className="py-16 px-4 border-t border-white/10 border-b border-white/10">
+                <section className="py-16 px-4 border-t border-white/10 border-b">
                     <div className="max-w-6xl mx-auto">
                         <div className="flex flex-col md:flex-row justify-between gap-8 text-center md:text-left">
                             <div className="flex-1">
