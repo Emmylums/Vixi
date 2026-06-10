@@ -78,7 +78,8 @@ export default function Home() {
               <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md rounded-full px-4 py-1.5 mb-6 border border-white/20">
                 <FontAwesomeIcon icon={faUsers} className="text-rose-400 text-sm" />
                 <span className="text-sm font-medium">
-                  {liveUserCount.toLocaleString()} people online now
+                  {/* {liveUserCount.toLocaleString()} people online now */}
+                  Chat with people online now
                 </span>
               </div>
               <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6">
