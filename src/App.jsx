@@ -3,6 +3,7 @@ import './App.css'
 import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom'
 import ScrollToTopButton from './components/ScrollToTopButton';
 import Home from './pages/Home';
+import Explore from './pages/Explore';
 
 
 
@@ -26,6 +27,7 @@ function App() {
       <ScrollToTopButton/>
       <Routes>
         <Route exact path="/" element={<Home/>}/>
+        <Route exact path="/explore" element={<Explore/>}/>
 
       </Routes>
     </BrowserRouter>
